@@ -79,3 +79,19 @@
       - name: 'modules.attachments'
         controller: 'alchemy/admin/attachments'
         action: index
+
+- name: active_storage_archive
+  engine_name: alchemy
+  position: 8
+  navigation:
+    controller: 'alchemy/admin/active_storage_files'
+    action: index
+    name: 'modules.active_storage_library'
+    icon: archive
+#    sub_navigation:
+#      - name: 'modules.pictures'
+#        controller: 'alchemy/admin/pictures'
+#        action: index
+#      - name: 'modules.attachments'
+#        controller: 'alchemy/admin/attachments'
+#        action: index
