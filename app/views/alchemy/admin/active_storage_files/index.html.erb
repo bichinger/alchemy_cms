@@ -1,0 +1,37 @@
+<% content_for(:toolbar) do %>
+  <div class="toolbar_buttons">
+    <% if can? :create, Alchemy::ActiveStorageFile %>
+      <%= render 'alchemy/admin/active_storage_direct_uploader/button',
+                 object: Alchemy::ActiveStorageFile.new,
+                 file_attribute: 'active_storage_file',
+                 redirect_url: alchemy.admin_active_storage_files_path(
+                   size: params[:size],
+                   filter: 'last_upload'
+                 ) %>
+      <div class="toolbar_spacer"></div>
+    <% end %>
+    <div class="button_group">
+      <div class="button_with_label">
+      </div>
+      <div class="button_with_label">
+      </div>
+      <div class="button_with_label">
+      </div>
+      <label><%= Alchemy.t('Image size') %></label>
+      <%#= hidden_field_tag('size', @size, id: 'overlay_thumbnails_size') %>
+    </div>
+    <div class="toolbar_spacer"></div>
+    <div class="button_with_label">
+      <%= link_to(
+            render_icon('check-square', style: 'regular'),
+            nil,
+            id: 'select_all_files',
+            class: 'icon_button',
+            'data-alchemy-hotkey' => 'alt+a'
+          ) %>
+      <label><%= Alchemy.t("Select all") %></label>
+    </div>
+  </div>
+
+  <%#= render 'alchemy/admin/partials/search_form', additional_params: [:filter, :tagged_with, :size] %>
+<% end %>

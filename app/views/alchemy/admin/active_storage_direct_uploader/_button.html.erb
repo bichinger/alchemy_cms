@@ -1,0 +1,28 @@
+<%= form_for [:admin, object], html: {multipart: true, class: 'upload-button'} do |f| %>
+
+  <%= f.file_field :file,
+                   class: 'fileupload fileupload--field', multiple: true, direct_upload: true,
+                   tabindex: '-1' %>
+
+  <%= f.label :file, data: {alchemy_hotkey: 'alt+n'} do %>
+    <div class="button_with_label">
+      <span class="icon_button" tabindex="0"><%= render_icon :upload %></span>
+      <label>
+        <%= local_assigns[:label] ||
+              Alchemy.t(:button_label, scope: [:uploader, object.class.model_name.i18n_key]) %>
+      </label>
+    </div>
+  <% end %>
+
+<% end %>
+
+
+<script type='text/javascript'>
+  $(function () {
+    var options = {
+      fileUploadForm: $('.upload-button')[0],
+      fileInput: $('.fileupload')[0],
+    }
+    Alchemy.ActiveStorageDirectUploader(options);
+  });
+</script>

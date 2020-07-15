@@ -17,6 +17,7 @@
 //= require handlebars
 //= require alchemy/templates
 //= require alchemy/alchemy.base
+//= require alchemy/alchemy.active_storage_direct_uploader
 //= require alchemy/alchemy.autocomplete
 //= require alchemy/alchemy.browser
 //= require alchemy/alchemy.buttons
@@ -48,3 +49,4 @@
 //= require alchemy/alchemy.trash_window
 //= require alchemy/page_select
 //= require alchemy/node_select
+//= require activestorage
