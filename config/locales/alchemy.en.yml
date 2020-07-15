@@ -446,6 +446,7 @@ en:
       languages: "Languages"
       layoutpages: "Global Pages"
       library: "Library"
+      active_storage_library: "Library"
       menus: "Menus"
       pages: "Pages"
       tags: "Tags"
@@ -749,10 +750,17 @@ en:
       alchemy/user:
         one: User
         other: User
+      alchemy/active_storage_file:
+        one: ActiveStorage File
+        other: ActiveStorage Files
     attributes:
       gutentag/tag:
         taggings_types: Used for
         taggings_count: Usage count
+      alchemy/active_storage_file:
+        created_at: "Created at"
+        updated_at: "Updated at"
+        name: "Filename"
       alchemy/attachment:
         file_mime_type: Filetype
         created_at: "Created at"
