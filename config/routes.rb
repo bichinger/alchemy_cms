@@ -73,6 +73,17 @@ Alchemy::Engine.routes.draw do
       end
     end
 
+    resources :active_storage_files, except: [:new] do
+      collection do
+        post :update_multiple
+        delete :delete_multiple
+        get :edit_multiple
+      end
+      member do
+        delete :remove
+      end
+    end
+
     resources :essence_pictures, except: [:show, :new, :create] do
       collection do
         put :assign
