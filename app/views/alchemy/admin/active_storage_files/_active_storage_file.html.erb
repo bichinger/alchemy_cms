@@ -1,0 +1,80 @@
+<tr class="<%= cycle('even', 'odd') %>">
+  <td class="icon">
+    <%= render_icon active_storage_file.icon_css_class, style: 'regular', size: 'lg' %>
+  </td>
+  <td class="name">
+    <% if can?(:show, active_storage_file) %>
+      <%= link_to_dialog(
+            active_storage_file.name,
+            alchemy.admin_active_storage_file_path(active_storage_file),
+            {
+              title: active_storage_file.name,
+              # size: attachment_preview_size(attachment)
+            },
+            {
+              title: Alchemy.t('File Preview')
+            }
+          ) %>
+    <% else %>
+      <%= active_storage_file.name %>
+    <% end %>
+  </td>
+  <td class="file_name"><%= active_storage_file.file.blob.filename %></td>
+  <td class="file_type"><%= active_storage_file.file.blob.content_type %></td>
+  <td class="file_size"><%= number_to_human_size(active_storage_file.file.blob.byte_size) %></td>
+  <td class="date"><%= l(active_storage_file.created_at, format: :'alchemy.default') %></td>
+  <td class="tools long">
+    <% if can?(:show, active_storage_file) %>
+      <%= link_to_dialog(
+            render_icon('info-circle'),
+            alchemy.admin_active_storage_file_path(active_storage_file),
+            {
+              title: active_storage_file.name,
+              # size: attachment_preview_size(attachment)
+            },
+            {
+              title: Alchemy.t('File Preview')
+            }
+          ) %>
+    <% end %>
+    <% if can?(:download, active_storage_file) %>
+      <%= link_to render_icon(:download),
+                  rails_blob_path(active_storage_file.file, disposition: "attachment"),
+                  title: Alchemy.t("download_file", filename: active_storage_file.name),
+                  target: "_blank" %>
+    <% end %>
+    <% if can?(:edit, active_storage_file) %>
+
+      <!-- TODO: Replace active storage file action -->
+
+    <% end %>
+    <% if can?(:destroy, active_storage_file) %>
+      <%= link_to_confirm_dialog render_icon(:minus),
+         Alchemy.t(:confirm_to_delete_file),
+         alchemy.admin_active_storage_file_path(
+           id: active_storage_file,
+           q: search_filter_params[:q],
+           page: params[:page],
+           per_page: params[:per_page]
+         ),
+         title: Alchemy.t(:delete_file) %>
+    <% end %>
+    <% if can?(:edit, active_storage_file) %>
+
+      <!-- TODO: Edit active storage file action -->
+
+      <%= link_to_dialog render_icon(:edit),
+         alchemy.edit_admin_active_storage_file_path(
+           active_storage_file,
+           q: search_filter_params[:q],
+           page: params[:page]
+         ),
+         {
+           title: Alchemy.t(:rename_file),
+           # size: '500x250'
+         },
+         title: Alchemy.t(:rename_file) %>
+
+    <% end %>
+  </td>
+</tr>

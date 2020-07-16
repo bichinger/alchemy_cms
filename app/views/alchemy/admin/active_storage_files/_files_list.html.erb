@@ -1,0 +1,28 @@
+<% if @active_storage_files.empty? %>
+  <%= render_message do %>
+    <% if search_filter_params[:q].present? %>
+      <%= Alchemy.t(:no_search_results) %>
+    <% else %>
+      <%= Alchemy.t(:no_files_in_archive) %>
+    <% end %>
+  <% end %>
+<% else %>
+  <table id="all_files" class="list">
+    <thead>
+      <tr>
+        <th class="icon"></th>
+        <th class="name"><%= sort_link(@query, :name) %></th>
+        <th class="file_name"><%= sort_link(@query, :file_name) %></th>
+        <th class="file_type"><%= Alchemy::ActiveStorageFile.human_attribute_name('file_type') %></th>
+        <th class="file_size"><%= sort_link(@query, :file_size) %></th>
+        <th class="date"><%= sort_link(@query, :created_at, default_order: 'desc') %></th>
+        <th class="tools"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: 'alchemy/admin/active_storage_files/active_storage_file', collection: @active_storage_files %>
+    </tbody>
+  </table>
+
+  <%= paginate @active_storage_files, theme: 'alchemy' %>
+<% end %>

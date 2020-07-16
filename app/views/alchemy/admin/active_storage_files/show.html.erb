@@ -1,0 +1,54 @@
+<div class="resource_info">
+  <div class="value">
+    <label>
+      <%= render_icon @active_storage_file.icon_css_class, style: 'regular', size: 'lg' %>
+    </label>
+    <p><%= @active_storage_file.name %></p>
+  </div>
+  <div class="value with-icon">
+    <label><%= Alchemy::ActiveStorageFile.human_attribute_name(:url) %></label>
+    <p><%= alchemy.admin_active_storage_file_url(@active_storage_file) %></p>
+    <a data-clipboard-text="<%= alchemy.admin_active_storage_file_url(@active_storage_file) %>" class="icon_button--right">
+      <%= render_icon(:clipboard, style: 'regular') %>
+    </a>
+  </div>
+  <div class="value with-icon">
+    <label><%= Alchemy::Attachment.human_attribute_name(:download_url) %></label>
+    <p><%= rails_blob_path(@active_storage_file.file, disposition: "attachment") %></p>
+    <a data-clipboard-text="<%= rails_blob_path(@active_storage_file.file, disposition: "attachment") %>" class="icon_button--right">
+      <%= render_icon(:clipboard, style: 'regular') %>
+    </a>
+  </div>
+</div>
+
+<% case @active_storage_file.icon_css_class %>
+<% when "file-image" %>
+<div class="attachment_preview_container image-preview">
+  <%= image_tag( rails_blob_path(@active_storage_file.file, disposition: "attachment"), class: "full_width") %>
+</div>
+<% when "file-audio" %>
+<div class="attachment_preview_container player-preview">
+  <%= audio_tag( rails_blob_path(@active_storage_file.file, disposition: "attachment"), preload: "none", controls: true, class: "full_width") %>
+</div>
+<% when "file-video" %>
+<div class="attachment_preview_container player-preview">
+  <%= video_tag( rails_blob_path(@active_storage_file.file, disposition: "attachment"), preload: "metadata", controls: true, class: "full_width") %>
+</div>
+<% when "file-pdf" %>
+<iframe src="<%= main_app.url_for(@active_storage_file.file) %>" frameborder=0 class="full-iframe">
+  Your browser does not support frames.
+</iframe>
+<% end %>
+
+<script type="text/javascript">
+  $(function() {
+    var clipboard = new Clipboard('.icon_button--right');
+    clipboard.on('success', function(e) {
+      Alchemy.growl('<%= Alchemy.t("Copied to clipboard") %>');
+      e.clearSelection();
+    });
+    Alchemy.currentDialog().dialog.on('DialogClose.Alchemy', function() {
+      clipboard.destroy();
+    });
+  });
+</script>

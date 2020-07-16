@@ -1,0 +1,30 @@
+<div id="filter_bar">
+  <h3><%= Alchemy.t('Filter') %></h3>
+  <%= select_tag(
+    'active_storage_file_filter',
+    options_for_select([
+      [Alchemy.t(:all_files), ''],
+      [Alchemy.t(:last_upload_only), 'last_upload'],
+      [Alchemy.t(:recently_uploaded_only), 'recent'],
+      [Alchemy.t(:without_tag), 'without_tag']
+    ], search_filter_params[:filter]),
+    :data => { :remote => !!request.xhr? },
+    :class => 'alchemy_selectbox'
+  ) %>
+</div>
+
+<script type="text/javascript">
+  $(function() {
+    $('#active_storage_file_filter').on('change', function(e) {
+      var $this = $(this);
+      var url = '<%= alchemy.admin_active_storage_files_path(search_filter_params.except(:filter).to_h) %>';
+      if ($this.data('remote') === true) {
+        $.get(url, {filter: $this.val()}, null, 'script');
+      } else {
+        delimiter = url.match(/\?/) ? '&' : '?';
+        Turbolinks.visit(url + delimiter + 'filter=' + $this.val());
+      }
+      return false;
+    });
+  });
+</script>
