@@ -6,7 +6,6 @@ module Alchemy
 
     has_one_attached :file
 
-
     has_many :essence_active_storage_pictures,
              class_name: "Alchemy::EssenceActiveStoragePicture",
              foreign_key: :active_storage_file_id,
@@ -14,9 +13,9 @@ module Alchemy
 
 
     with_options(presence: true) do
-      validates :file
       validates :name
     end
+    validate :validate_file_attached
 
     scope :recent, -> { where("#{table_name}.created_at > ?", Time.current - 24.hours).order(:created_at) }
     scope :without_tag, -> { left_outer_joins(:taggings).where(gutentag_taggings: { id: nil }) }
@@ -100,5 +99,10 @@ module Alchemy
       end
     end
 
+    private
+
+    def validate_file_attached
+      errors.add(:file, :presence) unless file.attached?
+    end
   end
 end
