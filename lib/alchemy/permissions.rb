@@ -101,7 +101,7 @@ module Alchemy
           :alchemy_admin_tags,
           :alchemy_admin_users,
           :alchemy_admin_active_storage_files,
-          # :alchemy_admin_active_storage_pictures,
+          :alchemy_admin_active_storage_pictures,
           # :alchemy_admin_active_storage_attachements,
         ]
 
@@ -119,7 +119,7 @@ module Alchemy
         can :manage,                Alchemy::Element
         can :manage,                Alchemy::EssenceFile
         can :manage,                Alchemy::EssencePicture
-        # can :manage,                Alchemy::EssenceActiveStoragePicture
+        can :manage,                Alchemy::EssenceActiveStoragePicture
         # can :manage,                Alchemy::EssenceActiveStorageAttachment
         can :manage,                Alchemy::LegacyPageUrl
         can :manage,                Alchemy::Node

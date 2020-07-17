@@ -99,6 +99,12 @@ Alchemy::Engine.routes.draw do
       end
     end
 
+    resources :essence_active_storage_pictures, only: [:edit, :update] do
+      collection do
+        put :assign
+      end
+    end
+
     resources :legacy_page_urls
     resources :languages do
       collection do
