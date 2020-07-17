@@ -6,6 +6,13 @@ module Alchemy
 
     has_one_attached :file
 
+
+    has_many :essence_active_storage_pictures,
+             class_name: "Alchemy::EssenceActiveStoragePicture",
+             foreign_key: :active_storage_file_id,
+             inverse_of: :ingredient_association
+
+
     with_options(presence: true) do
       validates :file
       validates :name
@@ -54,7 +61,8 @@ module Alchemy
     end
 
     # def self.file_types_for_select
-    #   file_types = Alchemy::ActiveStorageFile.all.file.blob.pluck(:content_type).uniq.map do |type|
+    #   file_types = Alchemy::ActiveStorageFile.joins(:file_blob).select(:content_type).distinct
+    #   file_types = Alchemy::ActiveStorageFile...file.blob.pluck(:content_type)...uniq.map do |type|
     #     [Alchemy.t(type, scope: "mime_types"), type]
     #   end
     #   file_types.sort_by(&:first)
