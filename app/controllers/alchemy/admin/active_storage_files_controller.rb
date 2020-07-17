@@ -32,6 +32,10 @@ module Alchemy
             @query,
             items_per_page,
         )
+
+        if in_overlay?
+          archive_overlay
+        end
       end
 
       def show
