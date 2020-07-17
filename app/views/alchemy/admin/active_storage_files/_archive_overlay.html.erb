@@ -1,0 +1,29 @@
+<div id="overlay_toolbar">
+  <% if can? :create, Alchemy::ActiveStorageFile %>
+    <%= render 'alchemy/admin/active_storage_direct_uploader/button',
+               object: Alchemy::ActiveStorageFile.new,
+               file_attribute: 'active_storage_file',
+               dropzone: '#assign_file_list',
+               in_dialog: true,
+      redirect_url: admin_active_storage_files_path(
+        element_id: @element.try(:id),
+        content_id: @content.try(:id)
+      ) %>
+  <% end %>
+  <%= render 'alchemy/admin/partials/remote_search_form' %>
+</div>
+
+<div id="assign_file_list" class="with_padding<%= search_filter_params[:tagged_with].present? ? ' filtered' : '' %>">
+  <div id="library_sidebar">
+    <%= render 'filter_bar' %>
+
+    <% if Alchemy::ActiveStorageFile.tag_counts.any? %>
+      <div class="tag-list">
+        <%= render 'tag_list' %>
+      </div>
+    <% end %>
+  </div>
+  <div id="overlay_file_list" class="with_tag_list">
+    <%= render 'overlay_file_list' %>
+  </div>
+</div>
