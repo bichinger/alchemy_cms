@@ -1,4 +1,4 @@
-class CreateEssenceActiveStoragePicture < ActiveRecord::Migration[6.0]
+class CreateEssenceActiveStoragePicture < ActiveRecord::Migration[5.2]
   def change
     create_table :alchemy_essence_active_storage_pictures do |t|
       t.timestamps
