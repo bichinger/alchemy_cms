@@ -14,6 +14,10 @@ module Alchemy
     before_action :mailer_set_url_options
     before_action :set_locale
 
+    # Needed to fix polymorphic_mappings.
+    # @see https://github.com/rails/rails/issues/31325#issuecomment-560135329
+    before_action :import_main_app_polymorphic_mappings
+
     helper "alchemy/admin/form"
 
     rescue_from CanCan::AccessDenied do |exception|
@@ -42,6 +46,12 @@ module Alchemy
 
     def mailer_set_url_options
       ActionMailer::Base.default_url_options[:host] = request.host_with_port
+    end
+
+    # Needed to fix polymorphic_mappings.
+    # @see https://github.com/rails/rails/issues/31325#issuecomment-560135329
+    def import_main_app_polymorphic_mappings
+      Alchemy::Engine.routes.polymorphic_mappings.merge! Rails.application.routes.polymorphic_mappings
     end
 
     protected
@@ -102,5 +112,6 @@ module Alchemy
         line.gsub(/#{Rails.root}/, "")
       }.join("\n"))
     end
+
   end
 end
