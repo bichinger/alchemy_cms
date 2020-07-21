@@ -5,10 +5,10 @@
                file_attribute: 'active_storage_file',
                dropzone: '#assign_file_list',
                in_dialog: true,
-      redirect_url: admin_active_storage_files_path(
-        element_id: @element.try(:id),
-        content_id: @content.try(:id)
-      ) %>
+               redirect_url: admin_active_storage_files_path(
+                 element_id: @element.try(:id),
+                 content_id: @content.try(:id)
+               ) %>
   <% end %>
   <%= render 'alchemy/admin/partials/remote_search_form' %>
 </div>

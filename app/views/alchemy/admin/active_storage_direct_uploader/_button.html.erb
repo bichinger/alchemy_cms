@@ -25,7 +25,7 @@
       fileUploadForm: $('.upload-button')[0],
       fileInput: $('.fileupload')[0],
       in_dialog: <% if local_assigns[:in_dialog] %>true<% else %>false<% end %>,
-      redirect_url: '<% local_assigns[:redirect_url] %>',
+      redirect_url: '<%= local_assigns[:redirect_url].to_s %>',
     });
   });
 </script>

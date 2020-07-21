@@ -89,6 +89,12 @@ en:
         right: 'Right from text'
         no_float: 'Above the text'
 
+    essence_active_storage_pictures:
+      css_classes:
+        left: 'Left from text'
+        right: 'Right from text'
+        no_float: 'Above the text'
+
     # == Contactform translations
     contactform:
       labels:

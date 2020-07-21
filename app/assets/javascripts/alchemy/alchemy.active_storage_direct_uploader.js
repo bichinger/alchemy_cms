@@ -24,7 +24,7 @@ Alchemy.ActiveStorageDirectUploader = function (settings) {
 
         let $fileUploadForm = $(settings.fileUploadForm);
 
-        let request = $.post(
+        $.post(
           $fileUploadForm.attr('action'),
           {
             authenticity_token: $fileUploadForm.find('input[name=authenticity_token]').val(),

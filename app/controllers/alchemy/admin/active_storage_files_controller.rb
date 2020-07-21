@@ -49,10 +49,12 @@ module Alchemy
 
       def create
         @active_storage_file = ActiveStorageFile.create!(create_params)
-      rescue StandardError => e
-        flash[:error] = e.message
-      ensure
-        redirect_to_index
+
+        if @active_storage_file && @active_storage_file.file.attached?
+          render successful_uploader_response(file: @active_storage_file)
+        else
+          render failed_uploader_response(file: @active_storage_file)
+        end
       end
 
       # def edit_multiple
