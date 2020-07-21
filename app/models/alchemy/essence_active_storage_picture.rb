@@ -9,12 +9,19 @@ module Alchemy
 
     # Show image cropping link for content
     def allow_image_cropping?
-      content && content.settings[:crop] && picture &&
-          picture.can_be_cropped_to(
-              content.settings[:size],
-              content.settings[:upsample],
-          ) && !!picture.image_file
+      # content && content.settings[:crop] && active_storage_file &&
+      #     can_be_cropped_to(
+      #         content.settings[:size],
+      #         content.settings[:upsample],
+      #     ) && active_storage_file.file.attached?
+      true
     end
+
+    # def can_be_cropped_to(string, upsample = false)
+    #   return true if upsample
+    #
+    #   is_bigger_than sizes_from_string(string)
+    # end
 
     def picture_url(options = {})
       return unless active_storage_file.file.attached?
@@ -22,10 +29,12 @@ module Alchemy
       # picture.url picture_url_options.merge(options)
 
       # TODO: Use ActiveStorage::Variants on this point!
+      # merged_options = picture_url_options.merge(options)
       # active_storage_file.file.variant(
       #
       # )
 
+      # DEV ONLY: Just return URL to picture . . .
       Rails.application.routes.url_helpers.url_for(active_storage_file.file)
     end
 
@@ -36,10 +45,10 @@ module Alchemy
     #
     # @return [HashWithIndifferentAccess]
     def picture_url_options
-      return {} if picture.nil?
+      return {} unless active_storage_file.file.attached?
 
       {
-          format: picture.default_render_format,
+          format: active_storage_file.file.blob.content_type,
           crop_from: crop_from.presence,
           crop_size: crop_size.presence,
           size: content.settings[:size],

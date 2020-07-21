@@ -99,9 +99,12 @@ Alchemy::Engine.routes.draw do
       end
     end
 
-    resources :essence_active_storage_pictures, only: [:edit, :update] do
+    resources :essence_active_storage_pictures, except: [:show, :new, :create] do
       collection do
         put :assign
+      end
+      member do
+        get :crop
       end
     end
 

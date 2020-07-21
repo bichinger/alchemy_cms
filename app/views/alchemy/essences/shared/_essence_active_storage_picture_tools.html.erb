@@ -2,7 +2,7 @@
 
 <% if content.essence && content.essence.allow_image_cropping? %>
   <%= link_to_dialog render_icon(:crop),
-    alchemy.crop_admin_essence_picture_path(content.essence), {
+    alchemy.crop_admin_essence_active_storage_picture_path(content.essence), {
       size: "1080x615",
       title: Alchemy.t('Edit Picturemask'),
       image_loader: false,
@@ -45,7 +45,7 @@
 <% end %>
 
 <%= link_to_dialog render_icon(:edit),
-  alchemy.edit_admin_essence_picture_path(
+  alchemy.edit_admin_essence_active_storage_picture_path(
     id: content.essence.id,
     content_id: content.id
   ), {
