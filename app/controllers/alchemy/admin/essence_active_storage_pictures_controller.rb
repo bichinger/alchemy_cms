@@ -50,11 +50,11 @@ module Alchemy
       end
 
       def destroy
-        # @content = Content.find_by(id: params[:id])
-        # @element = @content.element
-        # @content_id = @content.id
-        # @content.destroy
-        # @essence_active_storage_pictures = @element.contents.essence_active_storage_pictures
+        @content = Content.find_by(id: params[:id])
+        @element = @content.element
+        @content_id = @content.id
+        @content.destroy
+        @essence_active_storage_pictures = @element.contents.essence_active_storage_pictures
       end
 
       private

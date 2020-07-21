@@ -1,0 +1,9 @@
+(function($) {
+  Alchemy.ImageCropper.destroy();
+  Alchemy.closeCurrentDialog();
+  Alchemy.setElementDirty('#element_<%= @content.element.id %>');
+<% if @content.ingredient %>
+  $('.thumbnail_background img', '#<%= @content.dom_id %>').replaceWith('<%= essence_active_storage_picture_thumbnail(@content) %>');
+  Alchemy.ImageLoader('#<%= @content.dom_id %> .thumbnail_background');
+<% end %>
+})(jQuery);

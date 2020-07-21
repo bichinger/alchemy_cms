@@ -18,6 +18,22 @@ module Alchemy
         )
       end
 
+      # Renders a thumbnail for given EssenceActiveStoragePicture content
+      # with correct cropping and size
+      def essence_active_storage_picture_thumbnail(content)
+        picture = content.ingredient
+        essence = content.essence
+
+        return if picture.nil? || !picture.file.attached?
+
+        image_tag(
+            essence.thumbnail_url,
+            alt: picture.name,
+            class: "img_paddingtop",
+            title: Alchemy.t(:image_name) + ": #{picture.name}",
+            )
+      end
+
       # Size value for edit picture dialog
       def edit_picture_dialog_size(content)
         if content.settings[:caption_as_textarea]
