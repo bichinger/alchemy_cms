@@ -1,3 +1,6 @@
-<pre>ActiveStoragePicture - VIEW</pre>
 <% content = local_assigns[:content] || local_assigns[:essence_active_storage_picture_view] %>
-<%= Alchemy::EssenceActiveStoragePictureView.new(content,local_assigns[:options],local_assigns[:html_options]).render %>
+<%= Alchemy::EssenceActiveStoragePictureView.new(
+      content,
+      local_assigns[:options],
+      local_assigns[:html_options]
+    ).render %>

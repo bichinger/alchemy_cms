@@ -17,14 +17,16 @@ module Alchemy
     end
 
     def picture_url(options = {})
-      return if picture.nil?
+      return unless active_storage_file.file.attached?
 
       # picture.url picture_url_options.merge(options)
 
       # TODO: Use ActiveStorage::Variants on this point!
-      active_storage_file.file.variant(
+      # active_storage_file.file.variant(
+      #
+      # )
 
-      )
+      Rails.application.routes.url_helpers.url_for(active_storage_file.file)
     end
 
     # Picture rendering options

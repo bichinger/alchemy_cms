@@ -21,12 +21,12 @@ module Alchemy
       @options = DEFAULT_OPTIONS.merge(content.settings).merge(options)
       @html_options = html_options
       @essence = content.essence
-      @picture = essence.active_storage_picture
+      @picture = essence.active_storage_file
     end
 
     def render
       # return if picture.blank?
-      return if picture.attached?
+      return unless picture.file.attached?
 
       output = caption ? img_tag + caption : img_tag
 
