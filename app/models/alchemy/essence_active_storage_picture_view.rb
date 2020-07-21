@@ -26,7 +26,7 @@ module Alchemy
 
     def render
       # return if picture.blank?
-      return unless picture.file.attached?
+      return if !picture || !picture.file.attached?
 
       output = caption ? img_tag + caption : img_tag
 

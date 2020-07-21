@@ -24,7 +24,7 @@ module Alchemy
     # end
 
     def picture_url(options = {})
-      return unless active_storage_file.file.attached?
+      return if !active_storage_file || !active_storage_file.file.attached?
 
       # picture.url picture_url_options.merge(options)
 
@@ -45,7 +45,7 @@ module Alchemy
     #
     # @return [HashWithIndifferentAccess]
     def picture_url_options
-      return {} unless active_storage_file.file.attached?
+      return {} if !active_storage_file || !active_storage_file.file.attached?
 
       {
           format: active_storage_file.file.blob.content_type,
