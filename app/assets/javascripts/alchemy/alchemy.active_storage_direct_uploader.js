@@ -13,14 +13,10 @@ Alchemy.ActiveStorageDirectUploader = function (settings) {
     const upload = new ActiveStorage.DirectUpload(file, url)
 
     upload.create((error, blob) => {
-      console.log('create: ', error, blob);
       if (error) {
-
-        // TODO: Handle the error
         console.error('File upload failed: ', error);
-
+        Alchemy.growl('File upload failed: ' + error );
       } else {
-        console.log('adding hidden field . . . ', settings, blob);
 
         let $fileUploadForm = $(settings.fileUploadForm);
 
@@ -35,21 +31,17 @@ Alchemy.ActiveStorageDirectUploader = function (settings) {
           }
         )
           .done(function () {
-            console.log('upload successfully done . . . redirecting');
-
             if (settings.in_dialog) {
               $.get(settings.redirect_url, null, null, 'script');
             }
             else {
               Turbolinks.visit(settings.redirect_url);
             }
-
           })
-          .fail(function () {
-
-            // TODO: Handle the error
-            console.error('File upload failed: ', error);
-
+          .fail(function ( jqXHR, textStatus, errorThrown ) {
+            let errMsg = textStatus +': '+ jqXHR.responseText +' | '+ errorThrown;
+            console.error('File upload failed: ', errMsg);
+            Alchemy.growl(errMsg);
           })
           // .always(function () {
           // });

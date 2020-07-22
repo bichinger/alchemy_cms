@@ -11,6 +11,9 @@ module Alchemy
              foreign_key: :active_storage_file_id,
              inverse_of: :ingredient_association
 
+    has_many :contents, through: :essence_active_storage_pictures
+    has_many :elements, through: :contents
+    has_many :pages, through: :elements
 
     with_options(presence: true) do
       validates :name
@@ -25,10 +28,7 @@ module Alchemy
     end
 
     def self.last_upload
-      last_file = ActiveStorageFile.last
-      return ActiveStorageFile.all unless last_file
-
-      ActiveStorageFile.where(upload_hash: last_file.upload_hash)
+      Alchemy::ActiveStorageFile.joins(:file_blob).order(created_at: :desc).limit(1)
     end
 
     def self.search_by(params, query, per_page = nil)
@@ -59,8 +59,12 @@ module Alchemy
       end
     end
 
+    # Needed for ATTACHMENT filter of content_type:
+    # 
     # def self.file_types_for_select
+    #   TODO: Try this one:
     #   file_types = Alchemy::ActiveStorageFile.joins(:file_blob).select(:content_type).distinct
+    #   PsydoCode:
     #   file_types = Alchemy::ActiveStorageFile...file.blob.pluck(:content_type)...uniq.map do |type|
     #     [Alchemy.t(type, scope: "mime_types"), type]
     #   end

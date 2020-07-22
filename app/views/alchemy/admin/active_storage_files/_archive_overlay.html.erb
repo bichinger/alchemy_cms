@@ -6,6 +6,7 @@
                dropzone: '#assign_file_list',
                in_dialog: true,
                redirect_url: admin_active_storage_files_path(
+                 filter: 'last_upload',
                  element_id: @element.try(:id),
                  content_id: @content.try(:id)
                ) %>
