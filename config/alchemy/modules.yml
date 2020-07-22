@@ -64,30 +64,14 @@
     action: index
     icon: tags
 
-- name: archive
-  engine_name: alchemy
-  position: 7
-  navigation:
-    controller: 'alchemy/admin/pictures'
-    action: index
-    name: 'modules.library'
-    icon: archive
-    sub_navigation:
-      - name: 'modules.pictures'
-        controller: 'alchemy/admin/pictures'
-        action: index
-      - name: 'modules.attachments'
-        controller: 'alchemy/admin/attachments'
-        action: index
-
-- name: active_storage_archive
-  engine_name: alchemy
-  position: 8
-  navigation:
-    controller: 'alchemy/admin/active_storage_files'
-    action: index
-    name: 'modules.active_storage_library'
-    icon: archive
+#- name: archive
+#  engine_name: alchemy
+#  position: 7
+#  navigation:
+#    controller: 'alchemy/admin/pictures'
+#    action: index
+#    name: 'modules.library'
+#    icon: archive
 #    sub_navigation:
 #      - name: 'modules.pictures'
 #        controller: 'alchemy/admin/pictures'
@@ -95,3 +79,12 @@
 #      - name: 'modules.attachments'
 #        controller: 'alchemy/admin/attachments'
 #        action: index
+
+- name: active_storage_archive
+  engine_name: alchemy
+  position: 7
+  navigation:
+    controller: 'alchemy/admin/active_storage_files'
+    action: index
+    name: 'modules.active_storage_library'
+    icon: archive

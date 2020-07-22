@@ -199,3 +199,6 @@ format_matchers:
 
 # The layout used for rendering the +alchemy/admin/pages#show+ action.
 admin_page_preview_layout: application
+
+# Setting to use active_storage based library instead of dragonfly (=default) based one
+storage_adapter: active_storage
