@@ -137,9 +137,19 @@ module Alchemy
       end
 
       def link
-        @attachments = Attachment.all.collect { |f|
-          [f.name, download_attachment_path(id: f.id, name: f.slug)]
-        }
+        storage_adapter = Alchemy::Config.get(:storage_adapter) || :dragonfly
+
+        if storage_adapter == 'active_storage'
+          @attachments = ActiveStorageFile.all.collect do |f|
+            #rails_blob_path(user.avatar, disposition: "attachment")
+            [f.name, Rails.application.routes.url_helpers.rails_blob_path(f.file), disposition: "attachment"]
+            # [f.name, Rails.application.routes.url_helpers.url_for(f.file)]
+          end
+        else
+          @attachments = Attachment.all.collect { |f|
+            [f.name, download_attachment_path(id: f.id, name: f.slug)]
+          }
+        end
       end
 
       def fold
