@@ -9,12 +9,11 @@ module Alchemy
 
     # Show image cropping link for content
     def allow_image_cropping?
-      # content && content.settings[:crop] && active_storage_file &&
-      #     can_be_cropped_to(
-      #         content.settings[:size],
-      #         content.settings[:upsample],
-      #     ) && active_storage_file.file.attached?
-      true
+      content && content.settings[:crop] && active_storage_file &&
+          can_be_cropped_to(
+              content.settings[:size],
+              content.settings[:upsample],
+          ) && active_storage_file.file.attached?
     end
 
     # def can_be_cropped_to(string, upsample = false)
