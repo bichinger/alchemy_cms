@@ -14,7 +14,7 @@
   </div>
   <div class="value with-icon">
     <label><%= Alchemy::Attachment.human_attribute_name(:download_url) %></label>
-    <p><%= rails_blob_path(@active_storage_file.file, disposition: "attachment") %></p>
+    <p><%= rails_blob_url(@active_storage_file.file, disposition: "attachment") %></p>
     <a data-clipboard-text="<%= rails_blob_url(@active_storage_file.file, disposition: "attachment") %>" class="icon_button--right">
       <%= render_icon(:clipboard, style: 'regular') %>
     </a>
