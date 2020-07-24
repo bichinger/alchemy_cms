@@ -15,7 +15,7 @@
   <div class="value with-icon">
     <label><%= Alchemy::Attachment.human_attribute_name(:download_url) %></label>
     <p><%= rails_blob_path(@active_storage_file.file, disposition: "attachment") %></p>
-    <a data-clipboard-text="<%= rails_blob_path(@active_storage_file.file, disposition: "attachment") %>" class="icon_button--right">
+    <a data-clipboard-text="<%= rails_blob_url(@active_storage_file.file, disposition: "attachment") %>" class="icon_button--right">
       <%= render_icon(:clipboard, style: 'regular') %>
     </a>
   </div>
@@ -24,15 +24,15 @@
 <% case @active_storage_file.icon_css_class %>
 <% when "file-image" %>
 <div class="attachment_preview_container image-preview">
-  <%= image_tag( rails_blob_path(@active_storage_file.file, disposition: "attachment"), class: "full_width") %>
+  <%= image_tag( url_for(@active_storage_file.file), class: "full_width") %>
 </div>
 <% when "file-audio" %>
 <div class="attachment_preview_container player-preview">
-  <%= audio_tag( rails_blob_path(@active_storage_file.file, disposition: "attachment"), preload: "none", controls: true, class: "full_width") %>
+  <%= audio_tag( url_for(@active_storage_file.file), preload: "none", controls: true, class: "full_width") %>
 </div>
 <% when "file-video" %>
 <div class="attachment_preview_container player-preview">
-  <%= video_tag( rails_blob_path(@active_storage_file.file, disposition: "attachment"), preload: "metadata", controls: true, class: "full_width") %>
+  <%= video_tag( url_for(@active_storage_file.file), preload: "metadata", controls: true, class: "full_width") %>
 </div>
 <% when "file-pdf" %>
 <iframe src="<%= main_app.url_for(@active_storage_file.file) %>" frameborder=0 class="full-iframe">
