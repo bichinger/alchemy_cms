@@ -21,9 +21,7 @@ module Alchemy
     validate :validate_file_attached
 
     scope :recent, -> { where("#{table_name}.created_at > ?", Time.current - 24.hours).order(:created_at) }
-    scope :without_tag, -> { left_outer_joins(:taggings).where(gutentag_taggings: {id: nil}) }
-
-    after_create_commit :downcase_blob_filename_extension_hack
+    scope :without_tag, -> { left_outer_joins(:taggings).where(gutentag_taggings: { id: nil }) }
 
     def self.searchable_alchemy_resource_attributes
       %w(name)
@@ -62,7 +60,7 @@ module Alchemy
     end
 
     # Needed for ATTACHMENT filter of content_type:
-    #
+    # 
     # def self.file_types_for_select
     #   TODO: Try this one:
     #   file_types = Alchemy::ActiveStorageFile.joins(:file_blob).select(:content_type).distinct
@@ -109,19 +107,6 @@ module Alchemy
 
     def validate_file_attached
       errors.add(:file, :presence) unless file.attached?
-    end
-
-    # downcase the extension of the uploaded filename to avoid routing problem:
-    # Alchemy routes are handled before activestorage routes and one alchemy route matches
-    # everything that has NO format. Unfortunately, rails doesn't set e.g. png-format if the
-    # extension is ".PNG" - it only handles lowercase extensions. Until that is "fixed"/
-    # circumvented, we convert the file extension to lowercase letters.
-    # Problem will still occur for file extensions Rails doesn't have a format for.
-    def downcase_blob_filename_extension_hack
-      if (name = file&.blob&.filename)
-        file.blob.filename = File.basename(name) + File.extname(name).downcase
-        file.blob.save!
-      end
     end
   end
 end
