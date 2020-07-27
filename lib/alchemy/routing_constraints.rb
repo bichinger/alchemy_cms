@@ -32,7 +32,9 @@ module Alchemy
 
     # We don't want to handle the Rails info routes.
     def no_rails_route?
-      return true if !%w(development test).include?(Rails.env)
+      # note: following line commented out because it prevents all active storage routes being
+      # handled in production
+      #return true if !%w(development test).include?(Rails.env)
 
       (@params["urlname"] =~ /\Arails\//).nil?
     end
