@@ -149,6 +149,29 @@ module Alchemy
     # Class methods
     #
     class << self
+      # The url_path class
+      # @see Alchemy::Page::UrlPath
+      def url_path_class
+        @_url_path_class ||= Alchemy::Page::UrlPath
+      end
+
+      # Set a custom url path class
+      #
+      #     # config/initializers/alchemy.rb
+      #     Alchemy::Page.url_path_class = MyPageUrlPathClass
+      #
+      def url_path_class=(klass)
+        @_url_path_class = klass
+      end
+
+      def alchemy_resource_filters
+        %w[published not_public restricted]
+      end
+
+      def searchable_alchemy_resource_attributes
+        %w[name urlname title]
+      end
+
       # Used to store the current page previewed in the edit page template.
       #
       def current_preview=(page)
@@ -298,7 +321,7 @@ module Alchemy
     #
     # @see Alchemy::Page::UrlPath#call
     def url_path
-      Alchemy::Page::UrlPath.new(self).call
+      self.class.url_path_class.new(self).call
     end
 
     # The page's view partial is dependent from its page layout

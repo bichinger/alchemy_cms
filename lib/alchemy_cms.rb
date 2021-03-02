@@ -1,8 +1,7 @@
 # frozen_string_literal: true
+
 # Instantiate the global Alchemy namespace
-module Alchemy
-  YAML_WHITELIST_CLASSES = %w(Symbol Date Regexp)
-end
+require "alchemy"
 
 # Require globally used external libraries
 require "acts_as_list"
@@ -22,7 +21,6 @@ require "request_store"
 require "responders"
 require "sassc-rails"
 require "simple_form"
-require "select2-rails"
 require "turbolinks"
 require "userstamp"
 require "webpacker"
@@ -37,6 +35,7 @@ require_relative "alchemy/config"
 require_relative "alchemy/configuration_methods"
 require_relative "alchemy/controller_actions"
 require_relative "alchemy/deprecation"
+require_relative "alchemy/element_definition"
 require_relative "alchemy/elements_finder"
 require_relative "alchemy/errors"
 require_relative "alchemy/essence"
