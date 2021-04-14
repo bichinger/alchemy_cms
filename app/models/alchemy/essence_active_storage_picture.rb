@@ -82,7 +82,8 @@ module Alchemy
       # rails_blob_path(active_storage_file.file, disposition: "attachment")
 
       unless active_storage_file.file.variable?
-        return rails_blob_path(active_storage_file.file, disposition: "attachment")
+        # if no variant can be generated, return url of original image
+        return Rails.application.routes.url_helpers.url_for(active_storage_file.file)
       end
 
       # TODO: Use ActiveStorage::Variants at this point!
