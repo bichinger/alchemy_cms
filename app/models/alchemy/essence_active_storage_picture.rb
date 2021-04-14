@@ -81,10 +81,12 @@ module Alchemy
 
       # rails_blob_path(active_storage_file.file, disposition: "attachment")
 
-      # TODO: Use ActiveStorage::Variants on this point!
-      active_storage_file.file.variant(
+      if active_storage_file.file.variable?
+        # TODO: Use ActiveStorage::Variants on this point!
+        active_storage_file.file.variant(
           resize_to_limit: [100, 100],
-      )
+        )
+      end
     end
 
     def crop_values_present?
